@@ -438,7 +438,8 @@ $(document).ready(function () {
 										}
 									});
 								}, function (error) {
-									//console.log("error: ", error.message);
+									console.log("error: ", error.message);
+									alert(error.message);
 									$('.overlay').hide();
 								}
 							);
@@ -485,6 +486,10 @@ $(document).ready(function () {
 										}
 									});
 								});
+							}, function (error) {
+								console.log("error: ", error.message);
+								alert(error.message);
+								$('.overlay').hide();
 							});
 							if (br) return false;
 						}
