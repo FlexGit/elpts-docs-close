@@ -409,7 +409,7 @@ $(document).ready(function () {
 							var inn, snils, position, lastname, firstname, ogrn = '';
 							window.cspsignplugin.getCertificateProperty(data[i], 'subject').then(
 								function (data) {
-									//console.log('subject: ' + data);
+									console.log('subject: ' + data);
 
 									var data_arr = data.split(',');
 
@@ -439,6 +439,7 @@ $(document).ready(function () {
 										if (!firstname && param.indexOf('G=') === 0) {
 											firstname = param.substring(2);
 										}
+										console.log('inn: ' + inn + ', snils: ' + snils + ', ogrn: ' + ogrn + ', position: ' + position + ', lastname: ' + lastname + ', firstname: ' + firstname);
 									});
 								}, function (error) {
 									console.log("error: ", error.message);
@@ -449,7 +450,7 @@ $(document).ready(function () {
 
 							br = 1;
 							window.cspsignplugin.sign(file, data[i]).then(function (data) { // Signed Doc
-								//console.log(data);
+								console.log(data);
 								var fullname = lastname + ' ' + firstname;
 
 								var data = 'inn=' + inn + '&snils=' + snils + '&ogrn=' + ogrn + '&position=' + position + '&fullname=' + fullname + '&doc_id=' + doc_id + '&file=' + encodeURIComponent(file) + '&signature=' + encodeURIComponent(data) + '&email_confirm_code_id=' + email_confirm_code_id;
