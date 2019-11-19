@@ -94,12 +94,15 @@ class ElptsController extends Controller {
 	public function ajaxDocSave() {
 		$request = request()->all();
 		
-		//Log::info($request['certificates']);
+		Log::info('DEBUG certificates: ' . $request['certificates']);
+		Log::info('DEBUG request: ' . json_encode($request));
 		
 		$templates_id = $request['templates_id'];
 		
 		// Get Template
 		$template = Templates::where([['enable_closed', '=', '1'], ['id', '=', $templates_id]])->get();
+		
+		Log::info(count($template));
 		
 		if (!count($template)) {
 			return response()->json([
