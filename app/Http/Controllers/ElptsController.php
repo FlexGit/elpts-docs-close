@@ -281,11 +281,11 @@ class ElptsController extends Controller {
 			}
 		}
 		
-		$cur_number = $doc_fields_obj->getCurrentNumber($template->doctypes_id, $templates_id);
-		$number = $cur_number + 1;
-		
 		$prefix = '';
 		$prefix_id = $template_values_arr[15]['value'];
+
+		$cur_number = $doc_fields_obj->getCurrentNumber($template->doctypes_id, $prefix_id);
+		$number = $cur_number + 1;
 		
 		if (count($prefixes) > 0) {
 			foreach ($prefixes->all() as $value) {
