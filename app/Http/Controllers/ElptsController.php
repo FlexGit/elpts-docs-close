@@ -94,15 +94,10 @@ class ElptsController extends Controller {
 	public function ajaxDocSave() {
 		$request = request()->all();
 		
-		Log::info('DEBUG certificates: ' . $request['certificates']);
-		Log::info('DEBUG request: ' . json_encode($request));
-		
 		$templates_id = $request['templates_id'];
 		
 		// Get Template
 		$template = Templates::where([['enable_closed', '=', '1'], ['id', '=', $templates_id]])->get();
-		
-		Log::info(count($template));
 		
 		if (!count($template)) {
 			return response()->json([
@@ -131,13 +126,6 @@ class ElptsController extends Controller {
 		// Get Docs Fields
 		$doc_fields_obj = new Docs;
 		$doc_fields = $doc_fields_obj->getDocsFields($template->doctypes_id, $templates_id);
-		
-		if (in_array(trim($request['doc_field20']), ['vshurygin@armada73.ru', 'webmanage@inbox.ru', 'd1d1d1@inbox.ru'])) {
-			Log::info('DEBUG template: ' . json_encode($template));
-			Log::info('DEBUG template_fields: ' . json_encode($template_fields));
-			Log::info('DEBUG template_values_arr: ' . json_encode($template_values_arr));
-			Log::info('DEBUG doc_fields: ' . json_encode($doc_fields));
-		}
 		
 		// Prepare Validation Rules
 		$rules = $recaptcha_rules = [];
@@ -218,11 +206,6 @@ class ElptsController extends Controller {
 		
 		// Request Validation
 		$validator = Validator::make($request, $rules, $messages);
-		if (in_array(trim($request['doc_field20']), ['vshurygin@armada73.ru', 'webmanage@inbox.ru', 'd1d1d1@inbox.ru'])) {
-			Log::info('DEBUG request: ' . json_encode($request));
-			Log::info('DEBUG rules: ' . json_encode($rules));
-			Log::info('DEBUG messages: ' . json_encode($messages));
-		}
 		if (!$validator->passes()) {
 			return response()->json([
 				'response' => [
@@ -233,7 +216,6 @@ class ElptsController extends Controller {
 		
 		// E-mail Unique Validation
 		$response = $doc_fields_obj->emailUniqueValidate($request['doc_field20'], $request['doc_field5']);
-		//Log::info('Email='.$request['doc_field20'].', OGRN='.$request['doc_field5'].' = '.$response['error'][0].' - '.$response['prefix_number'][0].' - '.$response['email'][0].' - '.$response['ogrn'][0]);
 		if ($response['error']) {
 			return response()->json([
 				'response' => [
