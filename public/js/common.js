@@ -603,6 +603,7 @@ function loadCertificates() {
 	};
 	var _add = function (data) {
 		var data_arr = data.split(',');
+		//console.log(data_arr);
 		var ogrn = '';
 		data_arr.forEach(function (item, i, data_arr) {
 			var param = item.trim();
@@ -613,14 +614,18 @@ function loadCertificates() {
 			if (!ogrn && (param.indexOf('ОГРН=') !== -1 || param.indexOf('OGRN=') !== -1)) {
 				ogrn = param.substring(5);
 			}
+
+			console.log(param + '|' + param.indexOf('ОГРН=') + '|' + param.indexOf('OGRN=') + '|' + ogrn);
 		});
 
 		if (ogrn.length) {
+			console.log(ogrn);
 			var option = document.createElement("Option");
 			option.text = data;
 			option.setAttribute('data-ogrn', ogrn);
 			option.value = this.index;
 			element.add(option);
+			console.log(option);
 		}
 	};
 	var _load = function (data) {
