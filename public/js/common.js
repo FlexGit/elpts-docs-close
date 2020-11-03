@@ -294,7 +294,7 @@ $(document).ready(function () {
 		var is_error = 0;
 		var file = 'Auth';
 
-		console.log('OGRN DSS CHECK');
+		//console.log('OGRN DSS CHECK');
 
 		window.cspsignplugin.getCertificates().then(function (data) {
 			var br = 0;
@@ -305,7 +305,7 @@ $(document).ready(function () {
 					window.cspsignplugin.sign(file, data[i]).then(function (data) {
 						var request_data = 'ogrn=' + ogrn + '&templates_id=' + $('input[name="templates_id"]').val() + '&doctypes_id=' + $('input[name="doctypes_id"]').val() + '&certificate_ogrn=' + certificates.data('ogrn') + '&file=' + encodeURIComponent(file) + '&signature=' + encodeURIComponent(data);
 
-						console.log(request_data);
+						//console.log(request_data);
 
 						$.ajax({
 							url: '/ajaxOgrnCheck',
